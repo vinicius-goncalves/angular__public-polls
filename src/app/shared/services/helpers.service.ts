@@ -6,8 +6,8 @@ import { Injectable } from '@angular/core';
 export class HelpersService {
     constructor() {}
 
-    short(value: string) {
-        return value.length >= 64 ? `${value.slice(0, 64)}...` : value;
+    short(value: string, len: number = 64) {
+        return value.length >= len ? `${value.slice(0, len)}...` : value;
     }
 
     toPercentage(value: number): string {
