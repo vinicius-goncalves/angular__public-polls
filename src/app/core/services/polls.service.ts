@@ -1,31 +1,50 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import PollData from '../../types/poll/PollData.interface';
+import { Observable, map } from 'rxjs';
+import Poll from '../../types/poll/PollData.interface';
 
 @Injectable({
     providedIn: 'root',
 })
 export class PollsService {
-    protected polls: PollData[] = [];
+    private url = 'http://localhost:3000/polls';
 
-    constructor() {
-        for (let i = 0; i < 15; i++) {
-            this.polls.push({
-                id: String(i),
-                title: 'Which programming language do you prefer?',
-                description:
-                    'We are want to know what programming languages you prefer. Lorem ipsum dolor sit amet consectetur adipisicing elit. Commodi provident sequi, voluptas ratione corporis tenetur. Aperiam corporis optio dolor officia.',
-                totalVotes: Math.floor(Math.random() * 15),
-                createdAt: new Date(),
-                expiresAt: new Date(Date.now() + 1000 * 60 * 60 * 24),
+    constructor(private http: HttpClient) {}
+
+    getAllPolls(): Observable<Poll[]> {
+        return this.http.get<Poll[]>(this.url);
+    }
+
+    getPollById(id: string): Observable<Poll> {
+        return this.http.get<Poll>(`${this.url}/${id}`);
+    }
+
+    getPollTotalVotes(id: string) {
+        return this.getPollById(id).pipe(
+            map((poll) =>
+                poll.questions.reduce(
+                    (total, question) => total + question.votes,
+                    0,
+                ),
+            ),
+        );
+    }
+
+    incrementPollVotes(pollId: string, questionId: string) {
+        this.getPollById(pollId).subscribe((poll) => {
+            const questions = poll.questions.map((question) => {
+                if (question.id === questionId) {
+                    return { ...question, votes: question.votes + 1 };
+                }
+
+                return question;
             });
-        }
-    }
 
-    getAllPolls() {
-        return this.polls;
-    }
-
-    getPollById(id: string) {
-        return this.polls.find((poll) => poll.id == id);
+            this.http
+                .patch(`${this.url}/${pollId}`, {
+                    questions,
+                })
+                .subscribe();
+        });
     }
 }
