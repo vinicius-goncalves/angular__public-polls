@@ -1,50 +1,43 @@
-<div class="p-2">
-    <app-button [useIcon]="true" icon="arrow_back" (click)="back()" />
-    <div class="flex min-h-[calc(100vh-70px)] items-center justify-center">
-        <div
-            class="w-full max-w-xl rounded-md border border-gray-300 p-5 shadow-md">
-            <header>
-                <h1 class="font-bold">{{ pollData!.title }}</h1>
-                <small class="text-gray-400">{{ pollData.description }}</small>
-                <div>
-                    <small class="font-medium"
-                        >{{ pollData.totalVotes }} votes</small
+@if (!poll) {
+    <p>Loading...</p>
+} @else {
+    <div class="p-2">
+        <app-button [useIcon]="true" icon="arrow_back" (click)="back()" />
+        <div class="flex min-h-[calc(100vh-70px)] items-center justify-center">
+            <div
+                class="w-full max-w-xl rounded-md border border-gray-300 p-5 shadow-md">
+                <header>
+                    <h1 class="font-bold">{{ poll.title }}</h1>
+                    <small class="text-gray-400">{{ poll.description }}</small>
+                    <div>
+                        <small class="font-medium"
+                            >{{ poll.totalVotes }} votes</small
+                        >
+                    </div>
+                </header>
+                <main
+                    class="my-3 flex flex-col gap-1 overflow-hidden font-medium">
+                    @for (
+                        pollQuestion of poll.questions;
+                        track pollQuestion.id
+                    ) {
+                        <app-poll-question
+                            [pollIdContext]="poll.id"
+                            [pollQuestion]="pollQuestion"
+                            [userPoll]="userPoll"
+                            (checkedEvent)="checkedEvent($event)" />
+                    }
+                </main>
+                <footer class="mb-2 mt-10 text-center">
+                    <small class="text-gray-400"
+                        >This poll will be closed at
+                        <time class="text-black">{{
+                            poll.expiresAt! | customDate
+                        }}</time
+                        >.</small
                     >
-                </div>
-            </header>
-            <main class="my-3 flex flex-col gap-1 overflow-hidden font-medium">
-                <label class="flex items-center gap-3">
-                    <input type="radio" [name]="pollData.id" />
-                    <div class="min-w-[16rem]">
-                        <h2 class="font-bold">JavaScript</h2>
-                        <div
-                            class="mt-1 h-1 max-w-[16rem] overflow-hidden rounded-md bg-gray-400">
-                            <div class="h-1 w-16 bg-black"></div>
-                        </div>
-                    </div>
-                    <span class="mt-5">30%</span>
-                </label>
-                <label class="flex items-center gap-3">
-                    <input type="radio" [name]="pollData.id" />
-                    <div class="min-w-[16rem]">
-                        <h2 class="font-bold">Python</h2>
-                        <div
-                            class="mt-1 h-1 max-w-[16rem] overflow-hidden rounded-md bg-gray-400">
-                            <div class="h-1 w-6 bg-black"></div>
-                        </div>
-                    </div>
-                    <span class="mt-5">50%</span>
-                </label>
-            </main>
-            <footer class="mb-2 mt-10 text-center">
-                <small class="text-gray-400"
-                    >This poll will be closed at
-                    <time class="text-black">{{
-                        pollData.expiresAt | customDate
-                    }}</time
-                    >.</small
-                >
-            </footer>
+                </footer>
+            </div>
         </div>
     </div>
-</div>
+}
