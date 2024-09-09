@@ -1,0 +1,11 @@
+<button
+    [ngClass]="[
+        'grid place-content-center rounded-3xl bg-b px-4 py-2 text-sm text-white hover:opacity-90',
+        twClasses,
+    ]">
+    @if (useIcon) {
+        <span class="material-symbols-outlined font-bold">{{ icon }}</span>
+    } @else {
+        {{ title }}
+    }
+</button>

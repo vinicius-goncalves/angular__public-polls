@@ -1,1 +1,8 @@
 /* You can add global styles to this file, and also import other style files */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+[ng-reflect-router-link] {
+    @apply rounded-3xl bg-black p-2 text-sm text-white hover:opacity-70 hover:transition-all;
+}

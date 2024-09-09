@@ -1,0 +1,7 @@
+<app-button [useIcon]="true" icon="add" twClasses="btn-rounded btn-fixed" />
+
+<div class="flex flex-wrap justify-center">
+    @for (poll of polls; track poll.id) {
+        <app-poll [pollData]="poll" />
+    }
+</div>
