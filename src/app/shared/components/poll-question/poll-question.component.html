@@ -1,0 +1,23 @@
+@if (!pollQuestion) {
+    <p>Loading question and other details...</p>
+} @else {
+    <label class="poll-question-wrapper">
+        <input
+            type="radio"
+            [name]="pollIdContext"
+            [disabled]="userPoll.isPollChecked"
+            [checked]="isChecked()"
+            (change)="checked()" />
+        <div class="min-w-[16rem]">
+            <h2 class="font-bold">{{ pollQuestion.question }}</h2>
+            <div class="poll-diff-wrapper">
+                <div
+                    class="h-1 bg-black"
+                    [ngStyle]="{
+                        width: pollQuestion.votesPercentage,
+                    }"></div>
+            </div>
+        </div>
+        <span class="mt-5">{{ pollQuestion.votesPercentage }}</span>
+    </label>
+}

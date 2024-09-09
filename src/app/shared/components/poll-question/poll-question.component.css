@@ -1,0 +1,7 @@
+.poll-question-wrapper {
+    @apply my-1 flex items-center gap-3;
+}
+
+.poll-diff-wrapper {
+    @apply mt-1 h-1 max-w-[16rem] overflow-hidden rounded-md bg-gray-400;
+}

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { PollsService } from '../../../core/services/polls.service';
-import PollData from '../../../types/poll/PollData.interface';
+import Poll from '../../../types/poll/PollData.interface';
 import { ButtonComponent } from '../button/button.component';
 import { PollComponent } from '../poll/poll.component';
 
@@ -11,11 +11,19 @@ import { PollComponent } from '../poll/poll.component';
     templateUrl: './polls.component.html',
 })
 export class PollsComponent implements OnInit {
-    polls: PollData[] = [];
+    polls!: Poll[];
 
     constructor(private pollsService: PollsService) {}
 
     ngOnInit(): void {
-        this.polls = this.pollsService.getAllPolls();
+        this.pollsService.getAllPolls().subscribe({
+            next: (polls) => {
+                this.polls = polls as Poll[];
+            },
+        });
+    }
+
+    getPollById(id: string) {
+        console.log(id);
     }
 }
