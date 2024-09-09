@@ -1,7 +1,6 @@
-<div
-    class="m-3 w-full max-w-sm rounded-xl border border-gray-500/30 p-3 shadow-lg">
-    <header className="my-3">
-        <h2 class="text-xl font-bold">{{ pollData.title }}</h2>
+<div class="poll-container">
+    <header>
+        <h2 class="text-lg font-bold">{{ pollData.title }}</h2>
         <div class="flex items-center gap-1.5">
             <small class="text-center font-medium text-black"
                 >{{ pollData.totalVotes }} votes
@@ -18,10 +17,8 @@
             {{ pollData.description }}
         </p>
     </main>
-    <footer class="flex items-center justify-between">
-        <a [routerLink]="['/poll', pollData.id]" appCustomRouterLink
-            >View poll</a
-        >
+    <footer class="flex w-[inherit] items-center justify-between">
+        <a [routerLink]="['/poll', pollData.id]">View poll</a>
 
         <small class="text-gray-400"
             >Expires at:
