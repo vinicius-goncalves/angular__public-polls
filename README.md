@@ -4,6 +4,9 @@
 
 Create public polls and share them with anyone you want to.
 
+![][project-banner]
+![][project-image-1]
+
 <div>
 
 ## Introdution
@@ -55,6 +58,8 @@ You can try this project out by clicking below on the follow link: [polls.vinici
 </div>
 
 [comment]: # 'assets-path'
+[project-banner]: <https://github.com/vinicius-goncalves/projects/blob/main/assets/public-polls/project-banner.png> "Project Banner"
+[project-image-1]: <https://github.com/vinicius-goncalves/projects/blob/main/assets/public-polls/image-1.png> "Project Image 1"
 [typescript]: <https://img.shields.io/badge/TypeScript-323330?style=for-the-badge&logo=typescript&logoColor=3077C5> 'TypeScript'
 [angular]: <https://img.shields.io/badge/Angular-323330?style=for-the-badge&logo=angular&logoColor=764ABC> "Angular"
 [tailwind]: <https://img.shields.io/badge/Tailwind-323330?style=for-the-badge&logo=TailwindCSS> 'Tailwind'
