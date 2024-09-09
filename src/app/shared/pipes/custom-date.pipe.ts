@@ -6,7 +6,8 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class CustomDatePipe implements PipeTransform {
     transform(value: string | Date, ...args: unknown[]): unknown {
-        const date = new Date(value);
+        value = new Date(+value);
+
         const options: Intl.DateTimeFormatOptions = {
             day: '2-digit',
             month: '2-digit',
@@ -17,6 +18,6 @@ export class CustomDatePipe implements PipeTransform {
             second: '2-digit',
         };
 
-        return new Intl.DateTimeFormat('en-US', options).format(date);
+        return new Intl.DateTimeFormat('pt-BR', options).format(value);
     }
 }

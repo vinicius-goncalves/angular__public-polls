@@ -1,9 +1,10 @@
 import { DatePipe } from '@angular/common';
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
+import { PollsService } from '../../../core/services/polls.service';
+import Poll from '../../../types/poll/PollData.interface';
 import { CustomDatePipe } from '../../pipes/custom-date.pipe';
 import { ButtonComponent } from '../button/button.component';
-import PollData from '../../../types/poll/PollData.interface';
 
 @Component({
     selector: 'app-poll',
@@ -18,20 +19,22 @@ import PollData from '../../../types/poll/PollData.interface';
     templateUrl: './poll.component.html',
 })
 export class PollComponent implements OnChanges {
-    @Input({ required: false }) pollData: PollData = {
+    @Input({ required: false }) pollData: Partial<Poll> = {
         id: '',
         title: '',
         description: '',
-        totalVotes: 0,
         expiresAt: new Date(),
         createdAt: new Date(),
+        totalVotes: 0,
     };
 
-    // constructor(private helpersService: HelpersService)
+    constructor(private pollsService: PollsService) {}
 
     ngOnChanges(changes: SimpleChanges): void {
-        // if (changes['pollData'].) {
-        //     // this.helpersService.short();
-        // }
+        this.pollsService
+            .getPollTotalVotes(this.pollData.id!)
+            .subscribe((totalVotes) => {
+                this.pollData.totalVotes = totalVotes;
+            });
     }
 }
