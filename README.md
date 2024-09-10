@@ -1,4 +1,4 @@
-> ⛔ This project is under construction ⛔
+> ⛔ This project is under construction. The link **polls.vinicius-goncalves.com** won't take you to any place. ⛔
 
  # 📊 Public Poll
 
